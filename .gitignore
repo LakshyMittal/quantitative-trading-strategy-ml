@@ -6,3 +6,5 @@ models/
 data/raw/
 .DS_Store
 data/raw/*.csv
+data/
+mailmap.txt
