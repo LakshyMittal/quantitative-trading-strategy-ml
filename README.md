@@ -1,17 +1,50 @@
-# quantitative-trading-strategy-ml
-## Author
-Lakshy Mittal
-# Quantitative Trading Strategy using Machine Learning
+# Quantitative Trading Strategy with Machine Learning
 
-## Overview
-This project implements an end-to-end quantitative research pipeline for
-intraday market data using Python and machine learning.
+**Author:** Lakshy Mittal  
+**Assignment:** ML Engineer + Quantitative Researcher (Fresher Level)  
+**Deadline:** 18 January 2025, 11:59 PM IST
 
-The objective is not to predict prices directly, but to use ML as a
-**trade filter** to improve consistency and reduce noise in a
-rule-based trading strategy.
+## Project Overview
 
-This project is developed as part of a technical screening task.
+This project implements a complete **end-to-end quantitative trading system** demonstrating expertise in:
+- 📊 Data engineering and cleaning
+- 🔧 Advanced feature engineering
+- 🤖 Machine learning trade filtering
+- 📈 Backtesting and performance analysis
+- 📉 Statistical outlier detection
+
+The objective is not to predict prices directly, but to use **machine learning as a probabilistic trade filter** on top of rule-based signals to improve consistency and reduce noise in an intraday trading strategy.
+
+### Key Innovation
+The strategy combines:
+1. **Trend-based signals** (5/15 EMA crossover)
+2. **Regime detection** (Hidden Markov Model with 3 states)
+3. **ML trade filtering** (XGBoost classifier with 60% confidence threshold)
+
+This hybrid approach demonstrates superior risk-adjusted returns (Sharpe ratio improvement) compared to baseline strategies.
+
+---
+
+## Installation
+
+### Prerequisites
+- Python 3.8+
+- pip (Python package manager)
+- Windows/Mac/Linux terminal
+
+### Setup Instructions
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/quantitative-trading-strategy-ml.git
+   cd quantitative-trading-strategy-ml
+   ```
+2. **Install required packages:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Download data files:**
+   - Follow instructions in `01_data_acquisition.ipynb` to download and preprocess data.
 
 ---
 
