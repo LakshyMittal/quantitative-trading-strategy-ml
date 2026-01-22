@@ -56,7 +56,7 @@ except:
     df_regime = df.copy()
 
 strategy_regime = EMA5_15Strategy(regime_filter=True)
-df_regime = strategy_regime.generate_signals(df_regime.copy(), "ema_fast", "ema_slow", "market_regime")
+df_regime = strategy_regime.generate_signals(df_regime.copy(), "ema_fast", "ema_slow", "regime")
 df_regime = strategy_regime.calculate_returns(df_regime, "signal")
 
 backtester_regime = Backtester(commission=0.001)
@@ -66,7 +66,11 @@ print(f"   Total Return: {metrics_regime['strategy']['total_return']:.4f}")
 print(f"   Sharpe Ratio: {metrics_regime['sharpe_ratio']:.2f}")
 print(f"   Max Drawdown: {metrics_regime['max_drawdown']:.2%}")
 
-improvement = ((metrics_regime['sharpe_ratio'] / metrics_baseline['sharpe_ratio']) - 1) * 100
+if metrics_baseline['sharpe_ratio'] < 0:
+    improvement = (metrics_regime['sharpe_ratio'] - metrics_baseline['sharpe_ratio']) / abs(metrics_baseline['sharpe_ratio']) * 100
+else:
+    improvement = ((metrics_regime['sharpe_ratio'] / metrics_baseline['sharpe_ratio']) - 1) * 100
+
 print(f"   Sharpe improvement: {improvement:.1f}%")
 
 print("\n[4/5] Testing ML-enhanced strategy (XGBoost)...")
@@ -98,7 +102,11 @@ try:
     print(f"   Sharpe Ratio: {metrics_ml['sharpe_ratio']:.2f}")
     print(f"   Max Drawdown: {metrics_ml['max_drawdown']:.2%}")
     
-    ml_improvement = ((metrics_ml['sharpe_ratio'] / metrics_baseline['sharpe_ratio']) - 1) * 100
+    if metrics_baseline['sharpe_ratio'] < 0:
+        ml_improvement = (metrics_ml['sharpe_ratio'] - metrics_baseline['sharpe_ratio']) / abs(metrics_baseline['sharpe_ratio']) * 100
+    else:
+        ml_improvement = ((metrics_ml['sharpe_ratio'] / metrics_baseline['sharpe_ratio']) - 1) * 100
+        
     print(f"   Sharpe improvement: {ml_improvement:.1f}%")
     
     has_ml = True

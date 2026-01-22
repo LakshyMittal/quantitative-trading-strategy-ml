@@ -1,2 +1,1 @@
 entry_date,exit_date,entry_price,exit_price,pnl,pnl_pct,duration,signal_type,avg_vol,avg_ema_spread,pnl_zscore,duration_zscore,is_outlier,is_profitable
-2022-02-28 09:15:00+05:30,2022-02-28 09:20:00+05:30,16464.55,16400.25,64.29999999999927,0.0039053603044115555,1,SHORT,0.0030997419828077497,-9.516413846582509,3.386072064735369,,True,True

@@ -102,7 +102,8 @@ class HMMRegimeDetector:
         
         # Map HMM states to trading regimes dynamically
         regimes = self._map_states_to_regimes(df, states)
-        logger.info(f"Predicted regimes: {np.bincount(regimes)}")
+        unique, counts = np.unique(regimes, return_counts=True)
+        logger.info(f"Predicted regimes: {dict(zip(unique, counts))}")
         return regimes
     
     def _map_states_to_regimes(self, df: pd.DataFrame, states: np.ndarray) -> np.ndarray:

@@ -8,9 +8,12 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 WORKFLOWS_PATH = Path(__file__).parent
+DATA_PATH = PROJECT_ROOT / "data" / "processed"
 
 scripts = [
+    "run_data_processing.py",
     "run_ml_training.py",
+    "run_optimization.py",
     "run_hmm_analysis.py",
     "run_backtest.py",
     "run_outlier_analysis.py"
@@ -33,7 +36,8 @@ for i, script in enumerate(scripts, 1):
         )
         
         if result.returncode != 0:
-            print(f" {script} finished with warnings")
+            print(f"!!! Error running {script}. Pipeline stopped.")
+            sys.exit(1)
         else:
             print(f" {script} completed successfully")
     

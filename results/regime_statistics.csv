@@ -1,0 +1,4 @@
+Regime,Count,Percentage,Avg_Return,Volatility,Sharpe_Ratio,Avg_EMA_Spread
+Uptrend,37,14.9%,0.002459,0.010082,34.20,235.05
+Downtrend,7,2.8%,-0.000036,0.018291,-0.28,-209.76
+Sideways,205,82.3%,-0.000013,0.005887,-0.30,19.63

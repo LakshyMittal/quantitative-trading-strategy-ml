@@ -211,7 +211,7 @@ for idx, (feature, title) in enumerate(features_to_compare):
         outliers[feature].dropna()
     ]
     
-    bp = ax.boxplot(data_to_plot, labels=["Normal", "Outlier"], patch_artist=True)
+    bp = ax.boxplot(data_to_plot, tick_labels=["Normal", "Outlier"], patch_artist=True)
     bp["boxes"][0].set_facecolor("#1f77b4")
     bp["boxes"][1].set_facecolor("#d62728")
     

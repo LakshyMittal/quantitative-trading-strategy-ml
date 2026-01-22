@@ -32,6 +32,15 @@ features_path = DATA_PATH / "features_1y.csv"
 df = pd.read_csv(features_path, parse_dates=["date"])
 df["log_return"] = np.log(df["close"] / df["close"].shift(1))
 
+# Ensure ema_spread exists
+if "ema_spread" not in df.columns and "ema_fast" in df.columns and "ema_slow" in df.columns:
+    df["ema_spread"] = df["ema_fast"] - df["ema_slow"]
+
+# Validate features exist before proceeding
+if "ema_spread" not in df.columns:
+    print("Error: 'ema_spread' could not be calculated. Check if 'ema_fast' and 'ema_slow' exist in input data.")
+    sys.exit(1)
+
 print(f" Loaded {len(df)} samples")
 print(f" Date range: {df['date'].min()} to {df['date'].max()}")
 
@@ -132,7 +141,7 @@ for regime in [1, -1, 0]:
     volatilities.append(df[mask]["rolling_vol"].dropna().values)
     regime_list.append(regime_names[regime])
 
-bp = ax.boxplot(volatilities, labels=regime_list, patch_artist=True)
+bp = ax.boxplot(volatilities, tick_labels=regime_list, patch_artist=True)
 for patch, regime in zip(bp["boxes"], [1, -1, 0]):
     patch.set_facecolor(colors[regime])
     patch.set_alpha(0.7)

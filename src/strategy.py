@@ -70,15 +70,20 @@ class EMA5_15Strategy:
         ema_diff = df[ema_fast_col] - df[ema_slow_col]
         ema_diff_prev = ema_diff.shift(1)
         
-        # Bullish crossover (fast crosses above slow)
-        bullish = (ema_diff > 0) & (ema_diff_prev <= 0)
-        # Bearish crossover (fast crosses below slow)
-        bearish = (ema_diff < 0) & (ema_diff_prev >= 0)
+        # Trend Following: Hold signal as long as trend persists
+        bullish = (ema_diff > 0)
+        bearish = (ema_diff < 0)
         
         # Apply regime filter if enabled
         if self.regime_filter and regime_col in df.columns:
-            bullish = bullish & (df[regime_col] == "bull_trend_high_vol")
-            bearish = bearish & (df[regime_col] == "bear_trend_high_vol")
+            # Handle numeric regimes (1: Bullish, -1: Bearish) from HMM
+            if pd.api.types.is_numeric_dtype(df[regime_col]):
+                bullish = bullish & (df[regime_col] == 1)
+                bearish = bearish & (df[regime_col] == -1)
+            else:
+                # Legacy string support
+                bullish = bullish & (df[regime_col] == "bull_trend_high_vol")
+                bearish = bearish & (df[regime_col] == "bear_trend_high_vol")
         
         df.loc[bullish, "signal"] = 1   # Long signal
         df.loc[bearish, "signal"] = -1  # Short signal
